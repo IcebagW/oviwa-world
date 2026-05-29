@@ -4,21 +4,37 @@ import { useUserStore } from '../store/user.js'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+import Profile from '../views/Profile.vue'
 
 // ✅ 新增页面
 import AdventureLog from '../views/AdventureLog.vue'
+import AdventureDetail from '../views/AdventureDetail.vue'
+import AdventureCreate from '../views/AdventureCreate.vue'
 import WorldMap from '../views/WorldMap.vue'
+import StockMarket from '../views/StockMarket.vue'
+import FireworksTest from '../views/FireworksTest.vue'
 
 const routes = [
   { path: '/', name: 'Home', component: Home, meta: { requiresAuth: true } },
   { path: '/login', name: 'Login', component: Login },
   { path: '/register', name: 'Register', component: Register },
 
+  // 👤 个人中心（需要认证）
+  { path: '/profile', name: 'Profile', component: Profile, meta: { requiresAuth: true } },
+
   // 🌍 新增：冒险日志（需要认证）
   { path: '/log', name: 'AdventureLog', component: AdventureLog, meta: { requiresAuth: true } },
+  { path: '/log/new', name: 'AdventureCreate', component: AdventureCreate, meta: { requiresAuth: true } },
+  { path: '/log/:id', name: 'AdventureDetail', component: AdventureDetail, meta: { requiresAuth: true } },
 
   // 🗺️ 新增：世界地图（需要认证）
-  { path: '/map', name: 'WorldMap', component: WorldMap, meta: { requiresAuth: true } }
+  { path: '/map', name: 'WorldMap', component: WorldMap, meta: { requiresAuth: true } },
+
+  // 📈 股票市场（需要认证）
+  { path: '/stocks', name: 'StockMarket', component: StockMarket, meta: { requiresAuth: true } },
+
+  // ✨ 神秘传送门（需要认证）
+  { path: '/portal', name: 'FireworksTest', component: FireworksTest, meta: { requiresAuth: true } }
 ]
 
 const router = createRouter({

@@ -116,7 +116,8 @@ export default {
 
 /* 💌 登录卡片 */
 .login-card {
-  width: 320px;
+  width: 100%;
+  max-width: 360px;
   text-align: center;
 }
 
@@ -192,5 +193,18 @@ export default {
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
+}
+
+/* 📱 响应式 */
+@media (max-width: 600px) {
+  .title {
+    font-size: 1.8rem;
+  }
+  .subtitle {
+    font-size: 0.9rem;
+  }
+  .login-card {
+    padding: 20px;
+  }
 }
 </style>

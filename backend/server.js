@@ -4,6 +4,8 @@ import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import authRoutes from './routes/auth.js'
 import adventureRoutes from './routes/adventures.js'
+import commentRoutes from './routes/comments.js'
+import stockRoutes, { seedStocks, startPriceUpdater } from './routes/stocks.js'
 
 dotenv.config()
 
@@ -21,16 +23,27 @@ mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-.then(() => console.log('✅ MongoDB 已连接'))
+.then(async () => {
+  console.log('✅ MongoDB 已连接')
+  // 📈 初始化股票 & 启动价格更新
+  await seedStocks()
+  startPriceUpdater()
+})
 .catch(err => console.log('❌ MongoDB 连接失败:', err))
 
 // 🔐 认证路由
 app.use('/api/auth', authRoutes)
 
-// � 冒险日志路由
+// 📖 冒险日志路由
 app.use('/api/adventures', adventureRoutes)
 
-// �📌 测试路由
+// 💬 评论路由
+app.use('/api/comments', commentRoutes)
+
+// 📈 股票路由
+app.use('/api/stocks', stockRoutes)
+
+// 📌 测试路由
 app.get('/api/health', (req, res) => {
   res.json({ status: '✅ 服务器运行中' })
 })

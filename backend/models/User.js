@@ -23,6 +23,30 @@ const userSchema = new mongoose.Schema(
       minlength: 6,
       select: false // 查询时不返回密码
     },
+    // 🎮 RPG 属性
+    level: { type: Number, default: 1 },
+    xp: { type: Number, default: 0 },
+    hp: { type: Number, default: 100 },
+    maxHp: { type: Number, default: 100 },
+    stamina: { type: Number, default: 100 },
+    maxStamina: { type: Number, default: 100 },
+    strength: { type: Number, default: 5 },
+    intelligence: { type: Number, default: 5 },
+
+    // 👤 个人信息
+    displayName: { type: String, default: '' },
+    bio: { type: String, default: '' },
+    avatar: { type: String, default: '' },
+
+    // 💰 经济系统
+    viwaCoins: { type: Number, default: 10000 },
+    portfolio: [{
+      stockId: { type: mongoose.Schema.Types.ObjectId, ref: 'Stock' },
+      symbol: String,
+      shares: { type: Number, default: 0 },
+      avgCost: { type: Number, default: 0 }
+    }],
+
     createdAt: {
       type: Date,
       default: Date.now

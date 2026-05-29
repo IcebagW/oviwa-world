@@ -36,19 +36,21 @@ api.interceptors.response.use(
 
 // 📡 认证API接口
 export const authAPI = {
-  // 注册
   register: (username, email, password, confirmPassword) =>
     api.post('/auth/register', { username, email, password, confirmPassword }),
-  
-  // 登录
+
   login: (username, password) =>
     api.post('/auth/login', { username, password }),
-  
-  // 获取当前用户信息
+
   getMe: () =>
     api.get('/auth/me'),
-  
-  // 登出
+
+  getProfile: () =>
+    api.get('/auth/profile'),
+
+  updateProfile: (data) =>
+    api.put('/auth/profile', data),
+
   logout: () =>
     api.post('/auth/logout')
 }
@@ -65,6 +67,28 @@ export const adventureAPI = {
     api.put(`/adventures/${id}`, data),
   delete: (id) =>
     api.delete(`/adventures/${id}`)
+}
+
+// 💬 评论 API
+export const commentAPI = {
+  getByAdventure: (adventureId) =>
+    api.get(`/comments/${adventureId}`),
+  create: (adventureId, content) =>
+    api.post(`/comments/${adventureId}`, { content }),
+  delete: (commentId) =>
+    api.delete(`/comments/${commentId}`)
+}
+
+// 📈 股票 API
+export const stockAPI = {
+  getAll: () =>
+    api.get('/stocks'),
+  getOne: (id) =>
+    api.get(`/stocks/${id}`),
+  buy: (stockId, shares) =>
+    api.post('/stocks/buy', { stockId, shares }),
+  sell: (stockId, shares) =>
+    api.post('/stocks/sell', { stockId, shares })
 }
 
 export default api

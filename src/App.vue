@@ -2,7 +2,18 @@
   <div id="app">
     <Navbar />
 
-    <!-- 🌍 页面切换动画 -->
+    <!-- �️ 全局沙滩装饰 -->
+    <div class="sand-particle g-p1" aria-hidden="true"></div>
+    <div class="sand-particle g-p2" aria-hidden="true"></div>
+    <div class="sand-particle g-p3" aria-hidden="true"></div>
+    <div class="sand-particle g-p4" aria-hidden="true"></div>
+    <div class="sand-particle g-p5" aria-hidden="true"></div>
+    <div class="sand-particle g-p6" aria-hidden="true"></div>
+    <div class="sand-dune g-dune-1" aria-hidden="true"></div>
+    <div class="sand-dune g-dune-2" aria-hidden="true"></div>
+    <div class="sand-dune g-dune-3" aria-hidden="true"></div>
+
+    <!-- �🌍 页面切换动画 -->
     <router-view v-slot="{ Component }">
       <transition name="fade-slide" mode="out-in">
         <component :is="Component" />
@@ -92,5 +103,66 @@ body {
   0% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
   100% { transform: translateY(0); }
+}
+
+/* ========== 🏖️ 全局沙滩（固定底部） ========== */
+.sand-dune {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 50% 50% 0 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.g-dune-1 {
+  height: 80px;
+  background: #f4e4c1;
+  bottom: -10px;
+  border-radius: 60% 40% 0 0;
+  opacity: 0.5;
+}
+
+.g-dune-2 {
+  height: 120px;
+  background: #e9d4a7;
+  bottom: -20px;
+  border-radius: 40% 60% 0 0;
+  opacity: 0.4;
+}
+
+.g-dune-3 {
+  height: 50px;
+  background: #faf0d7;
+  bottom: 0;
+  border-radius: 70% 30% 0 0;
+  opacity: 0.3;
+}
+
+/* ⏳ 沙粒粒子 */
+.sand-particle {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  background: #d4a373;
+  image-rendering: pixelated;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.g-p1 { left: 15%; bottom: 10%; animation: rise 6s ease-in-out infinite; }
+.g-p2 { left: 35%; bottom: 8%; animation: rise 7s ease-in-out infinite 1s; }
+.g-p3 { left: 55%; bottom: 12%; animation: rise 5s ease-in-out infinite 2s; }
+.g-p4 { left: 75%; bottom: 9%; animation: rise 6.5s ease-in-out infinite 0.5s; }
+.g-p5 { left: 25%; bottom: 15%; animation: rise 5.5s ease-in-out infinite 3s; }
+.g-p6 { left: 65%; bottom: 7%; animation: rise 7.5s ease-in-out infinite 1.5s; }
+
+@keyframes rise {
+  0% { opacity: 0; transform: translateY(0) translateX(0); }
+  20% { opacity: 0.8; }
+  80% { opacity: 0.6; }
+  100% { opacity: 0; transform: translateY(-80px) translateX(20px); }
 }
 </style>

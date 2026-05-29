@@ -40,7 +40,20 @@ router.post('/register', async (req, res) => {
       user: {
         id: user._id,
         username: user.username,
-        email: user.email
+        email: user.email,
+        level: user.level,
+        xp: user.xp,
+        hp: user.hp,
+        maxHp: user.maxHp,
+        stamina: user.stamina,
+        maxStamina: user.maxStamina,
+        strength: user.strength,
+        intelligence: user.intelligence,
+        displayName: user.displayName,
+        bio: user.bio,
+        avatar: user.avatar,
+        viwaCoins: user.viwaCoins,
+        portfolio: user.portfolio
       }
     })
   } catch (err) {
@@ -81,7 +94,20 @@ router.post('/login', async (req, res) => {
       user: {
         id: user._id,
         username: user.username,
-        email: user.email
+        email: user.email,
+        level: user.level,
+        xp: user.xp,
+        hp: user.hp,
+        maxHp: user.maxHp,
+        stamina: user.stamina,
+        maxStamina: user.maxStamina,
+        strength: user.strength,
+        intelligence: user.intelligence,
+        displayName: user.displayName,
+        bio: user.bio,
+        avatar: user.avatar,
+        viwaCoins: user.viwaCoins,
+        portfolio: user.portfolio
       }
     })
   } catch (err) {
@@ -102,6 +128,76 @@ router.get('/me', verifyToken, async (req, res) => {
 // 🚪 登出（前端删除令牌即可，后端不需要特殊处理）
 router.post('/logout', verifyToken, (req, res) => {
   res.json({ message: '登出成功' })
+})
+
+// 👤 获取个人资料（含 RPG 属性）
+router.get('/profile', verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId)
+    if (!user) {
+      return res.status(404).json({ error: '用户不存在' })
+    }
+    res.json({
+      id: user._id,
+      username: user.username,
+      email: user.email,
+      level: user.level,
+      xp: user.xp,
+      hp: user.hp,
+      maxHp: user.maxHp,
+      stamina: user.stamina,
+      maxStamina: user.maxStamina,
+      strength: user.strength,
+      intelligence: user.intelligence,
+      displayName: user.displayName,
+      bio: user.bio,
+      avatar: user.avatar,
+      viwaCoins: user.viwaCoins,
+      portfolio: user.portfolio
+    })
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+})
+
+// ✏️ 更新个人资料
+router.put('/profile', verifyToken, async (req, res) => {
+  try {
+    const { displayName, bio, avatar } = req.body
+    const updateData = {}
+    if (displayName !== undefined) updateData.displayName = displayName
+    if (bio !== undefined) updateData.bio = bio
+    if (avatar !== undefined) updateData.avatar = avatar
+
+    const user = await User.findByIdAndUpdate(req.userId, updateData, { new: true })
+    if (!user) {
+      return res.status(404).json({ error: '用户不存在' })
+    }
+
+    res.json({
+      message: '更新成功',
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        level: user.level,
+        xp: user.xp,
+        hp: user.hp,
+        maxHp: user.maxHp,
+        stamina: user.stamina,
+        maxStamina: user.maxStamina,
+        strength: user.strength,
+        intelligence: user.intelligence,
+        displayName: user.displayName,
+        bio: user.bio,
+        avatar: user.avatar,
+        viwaCoins: user.viwaCoins,
+        portfolio: user.portfolio
+      }
+    })
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
 })
 
 export default router

@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div class="map-page">
     <h2>🗺️ 世界地图</h2>
-    <div id="map" style="height: 500px;"></div>
+    <p class="map-subtitle">记录我们访问世界的轨迹 🌍</p>
+    <div id="map" class="map-container"></div>
   </div>
 </template>
 
@@ -37,4 +38,39 @@ onMounted(async () => {
 
 <style>
 @import "leaflet/dist/leaflet.css";
+</style>
+
+<style scoped>
+.map-page {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.map-page h2 {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.map-subtitle {
+  text-align: center;
+  color: #888;
+  margin-bottom: 20px;
+}
+
+.map-container {
+  height: 500px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+@media (max-width: 600px) {
+  .map-page {
+    padding: 12px;
+  }
+  .map-container {
+    height: 350px;
+  }
+}
 </style>
